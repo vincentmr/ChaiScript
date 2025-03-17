@@ -413,10 +413,9 @@ if(BUILD_TESTING)
     target_link_libraries(multifile_test ${LIBS})
     add_test(NAME MultiFile_Test COMMAND multifile_test)
 
-    install(TARGETS test_module RUNTIME DESTINATION bin LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}/chaiscript")
+    install(TARGETS test_module RUNTIME DESTINATION bin LIBRARY DESTINATION "${CMAKE_INSTALL_PREFIX}/lib")
   endif()
 endif()
-
 
 if(BUILD_LIBFUZZ_TESTER)
   add_executable(fuzzer src/libfuzzer_client.cpp src/sha3.cpp)
@@ -425,7 +424,7 @@ if(BUILD_LIBFUZZ_TESTER)
 endif()
 
 
-install(TARGETS chai chaiscript_stdlib-${CHAI_VERSION} ${MODULES} RUNTIME DESTINATION bin LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}/chaiscript")
+install(TARGETS chai chaiscript_stdlib-${CHAI_VERSION} ${MODULES} RUNTIME DESTINATION bin LIBRARY DESTINATION "${CMAKE_INSTALL_PREFIX}/lib")
 
 install(DIRECTORY include/chaiscript DESTINATION include
   PATTERN "*.hpp"
@@ -446,6 +445,6 @@ install(DIRECTORY samples DESTINATION share/chaiscript
 
 configure_file(contrib/pkgconfig/chaiscript.pc.in lib/pkgconfig/chaiscript.pc @ONLY)
 install(FILES "${chaiscript_BINARY_DIR}/lib/pkgconfig/chaiscript.pc"
-        DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig")
+        DESTINATION "${CMAKE_INSTALL_PREFIX}/pkgconfig")
 
     
