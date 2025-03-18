@@ -424,7 +424,7 @@ if(BUILD_LIBFUZZ_TESTER)
 endif()
 
 
-install(TARGETS chai chaiscript_stdlib-${CHAI_VERSION} ${MODULES} RUNTIME DESTINATION bin LIBRARY DESTINATION "${CMAKE_INSTALL_PREFIX}/lib")
+install(TARGETS chai stdlib parser ${MODULES} EXPORT ChaiScriptConfig RUNTIME DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" LIBRARY DESTINATION "${CMAKE_INSTALL_PREFIX}/lib")
 
 install(DIRECTORY include/chaiscript DESTINATION include
   PATTERN "*.hpp"
@@ -447,4 +447,6 @@ configure_file(contrib/pkgconfig/chaiscript.pc.in lib/pkgconfig/chaiscript.pc @O
 install(FILES "${chaiscript_BINARY_DIR}/lib/pkgconfig/chaiscript.pc"
         DESTINATION "${CMAKE_INSTALL_PREFIX}/pkgconfig")
 
-    
+# Create and install the CMake configuration files for `find_package()`
+install(EXPORT ChaiScriptConfig DESTINATION share/ChaiScript/cmake)
+export(TARGETS ${LIBRARY_NAME} FILE ChaiScriptConfig.cmake)
